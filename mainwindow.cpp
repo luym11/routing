@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)));
     timer->start(10);
 
+    // init playRound
     playRound = 0;
 }
 
@@ -67,8 +68,10 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         scene->addItem(startItem);
         firstTimeFlag = false;
 
-//        // add in the QList of vertices
-//        vertices.append(e->pos());
+        // add in the QList of vertices
+        vertices.append(e->pos());
+
+
     }else{
         //draw an ellipse at the beginning of the line &
         QGraphicsEllipseItem *startItem = new QGraphicsEllipseItem(mousePressedPosNew.x()-5,mousePressedPosNew.y()-5, 10, 10);
@@ -76,8 +79,6 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         scene->addItem(startItem);
         //draw two lanes from mousePressedPosOld to mousePressedPosNew
         midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
-//        midPointUp = QPoint( midPoint.x(),midPoint.y() + 20 );
-//        midPointDown = QPoint( midPoint.x(),midPoint.y() - 20 );
         QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
         scene->addItem(path11);
         QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
@@ -87,11 +88,16 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
         scene->addItem(path22);
 
-//        // add in the QList of vertices
-//        vertices.append(e->pos());
-//        // add in the QList of midpoints
-//        midPointsUp.append(midPointUp);
-//        midPointsDown.append(midPointDown);
+        midPointUp = QPoint( midPoint.x(),midPoint.y() + 20 );
+        midPointDown = QPoint( midPoint.x(),midPoint.y() - 20 );
+
+        // add in the QList of vertices
+        vertices.append(e->pos());
+        // add in the QList of midpoints
+        midPointsUp.append(midPointUp);
+        midPointsDown.append(midPointDown);
+
+
     }
 
     mousePressedPosOld =e->pos();
@@ -103,7 +109,6 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e){
     //scene->removeItem(tempLine);
     //tempAdded=false;
     //scene->addItem(item);
-
 
     ////here we construct a "point" and schedule its update
     //QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-5,-5,10,10);
@@ -123,16 +128,24 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e){
 
 void MainWindow::on_pushButton_clicked()
 {
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
     // Draw one vehicle goes from Lane 1
-//    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200));
-//    informations.append(PointMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
-//    playRound++;
+    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200));
+    //informations.append(PointMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
     // Draw one vehicle goes from Lane 2
-//    informations.append(PointMoveInformation(vertices.at(playRound),midPointsDown.at(playRound),2000,currentTime,2200));
-//    informations.append(PointMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
-//    playRound++;
+    informations.append(PointMoveInformation(vertices.at(playRound),midPointsDown.at(playRound),2000,currentTime,2200));
+    //informations.append(PointMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
 }
