@@ -32,6 +32,8 @@ public:
     void mouseReleaseEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
 
+    int playRound;
+
 public slots:
     void timeUp();
 
@@ -57,7 +59,7 @@ private:
 //    QList<QPoint> midPointsUp;
 //    QList<QPoint> midPointsDown;
 
-//    int Round;
+
 
     Updater *updater;
     QList<QGraphicsEllipseItem *> items;

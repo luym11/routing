@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)));
     timer->start(10);
 
-//    Round = 0;
+    playRound = 0;
 }
 
 MainWindow::~MainWindow()
@@ -124,15 +124,15 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e){
 void MainWindow::on_pushButton_clicked()
 {
     // Draw one vehicle goes from Lane 1
-//    informations.append(PointMoveInformation(vertices.at(Round),midPointsUp.at(Round),2000,currentTime,2200));
-//    informations.append(PointMoveInformation(midPointsUp.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
-//    Round++;
+//    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200));
+//    informations.append(PointMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+//    playRound++;
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     // Draw one vehicle goes from Lane 2
-//    informations.append(PointMoveInformation(vertices.at(Round),midPointsDown.at(Round),2000,currentTime,2200));
-//    informations.append(PointMoveInformation(midPointsDown.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
-//    Round++;
+//    informations.append(PointMoveInformation(vertices.at(playRound),midPointsDown.at(playRound),2000,currentTime,2200));
+//    informations.append(PointMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+//    playRound++;
 }
