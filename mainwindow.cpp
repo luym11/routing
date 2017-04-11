@@ -29,7 +29,7 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)));
     timer->start(10);
 
-    Round = 0;
+//    Round = 0;
 }
 
 MainWindow::~MainWindow()
@@ -67,8 +67,8 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         scene->addItem(startItem);
         firstTimeFlag = false;
 
-        // add in the QList of vertices
-        vertices.append(e->pos());
+//        // add in the QList of vertices
+//        vertices.append(e->pos());
     }else{
         //draw an ellipse at the beginning of the line &
         QGraphicsEllipseItem *startItem = new QGraphicsEllipseItem(mousePressedPosNew.x()-5,mousePressedPosNew.y()-5, 10, 10);
@@ -76,8 +76,8 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         scene->addItem(startItem);
         //draw two lanes from mousePressedPosOld to mousePressedPosNew
         midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
-        midPointUp = QPoint( midPoint.x(),midPoint.y() + 20 );
-        midPointDown = QPoint( midPoint.x(),midPoint.y() - 20 );
+//        midPointUp = QPoint( midPoint.x(),midPoint.y() + 20 );
+//        midPointDown = QPoint( midPoint.x(),midPoint.y() - 20 );
         QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
         scene->addItem(path11);
         QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
@@ -87,11 +87,11 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
         scene->addItem(path22);
 
-        // add in the QList of vertices
-        vertices.append(e->pos());
-        // add in the QList of midpoints
-        midPointsUp.append(midPointUp);
-        midPointsDown.append(midPointDown);
+//        // add in the QList of vertices
+//        vertices.append(e->pos());
+//        // add in the QList of midpoints
+//        midPointsUp.append(midPointUp);
+//        midPointsDown.append(midPointDown);
     }
 
     mousePressedPosOld =e->pos();
@@ -124,15 +124,15 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e){
 void MainWindow::on_pushButton_clicked()
 {
     // Draw one vehicle goes from Lane 1
-    informations.append(PointMoveInformation(vertices.at(Round),midPointsUp.at(Round),2000,currentTime,2200));
-    informations.append(PointMoveInformation(midPointsUp.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
-    Round++;
+//    informations.append(PointMoveInformation(vertices.at(Round),midPointsUp.at(Round),2000,currentTime,2200));
+//    informations.append(PointMoveInformation(midPointsUp.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
+//    Round++;
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     // Draw one vehicle goes from Lane 2
-    informations.append(PointMoveInformation(vertices.at(Round),midPointsDown.at(Round),2000,currentTime,2200));
-    informations.append(PointMoveInformation(midPointsDown.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
-    Round++;
+//    informations.append(PointMoveInformation(vertices.at(Round),midPointsDown.at(Round),2000,currentTime,2200));
+//    informations.append(PointMoveInformation(midPointsDown.at(Round),vertices.at(Round+1), 2000,currentTime,2200));
+//    Round++;
 }

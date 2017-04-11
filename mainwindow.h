@@ -51,13 +51,13 @@ private:
     QGraphicsLineItem *tempLine;
     bool tempAdded;
     QPoint midPoint;
-    QPoint midPointUp;
-    QPoint midPointDown;
-    QList<QPoint> vertices;
-    QList<QPoint> midPointsUp;
-    QList<QPoint> midPointsDown;
+//    QPoint midPointUp;
+//    QPoint midPointDown;
+//    QList<QPoint> vertices;
+//    QList<QPoint> midPointsUp;
+//    QList<QPoint> midPointsDown;
 
-    int Round;
+//    int Round;
 
     Updater *updater;
     QList<QGraphicsEllipseItem *> items;
