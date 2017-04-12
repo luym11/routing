@@ -14,6 +14,9 @@
 #include "pointmoveinformation.h"
 #include "updater.h"
 #include "pointdoglegmoveinformation.h"
+#include <cstdio>
+#include <cstdlib>
+#include <iostream>
 
 namespace Ui {
 class MainWindow;
@@ -33,13 +36,12 @@ public:
     void mouseReleaseEvent(QMouseEvent *e);
     void mouseMoveEvent(QMouseEvent *e);
 
-    int playRound;
+
 
 public slots:
     void timeUp();
-
 signals:
-    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval);
+    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval, int mousePressedNum);
 
 private slots:
     void on_pushButton_clicked();
@@ -60,7 +62,13 @@ private:
     QList<QPoint> midPointsUp;
     QList<QPoint> midPointsDown;
 
-
+//    QWidget window;
+//    QSpinBox *pSpinBox;
+//    QSlider *pSlider;
+//    void setSliderAndSpinBox();
+//    int nMin = 2;
+//    int nMax = 5;
+//    int nSingleStep = 1;
 
     Updater *updater;
     QList<QGraphicsEllipseItem *> items;
@@ -71,6 +79,8 @@ private:
     QTimer *timer;
 
     bool firstTimeFlag = true;
+    int playRound;
+    int mousePressedNum;
 };
 
 #endif // MAINWINDOW_H

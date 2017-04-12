@@ -8,13 +8,13 @@ Updater::Updater(QGraphicsScene *bindScene,QObject *parent):QObject(parent)
     currentTime=0;
 }
 
-void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMoveInformation> &informations, int interval){
-    if(items.length()!=informations.length()){
-        qDebug()<<"Error! Update Terminated!";
-        return;
-    }
+void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMoveInformation> &informations, int interval, int mousePressedNum){
+//    if(items.length()!= ( informations.length()%mousePressedNum ) ){
+//        qDebug()<<"Error! Update Terminated!";
+//        return;
+//    }
     currentTime+=interval;
-    for(int i=0;i<items.length();++i){
+    for(int i=0;i<informations.length();++i){
         //here must be written as this cause lifetime may be INT_MAX and any add to is will cause overflow 
         if(informations[i].lifeTime-currentTime<-informations[i].startTime){
             //clean those expired points
