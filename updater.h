@@ -6,6 +6,7 @@
 #include <QList>
 #include <QGraphicsItem>
 #include "pointmoveinformation.h"
+#include "pointdoglegmoveinformation.h"
 
 class Updater:public QObject
 {
@@ -16,7 +17,7 @@ public:
 
 
 public slots:
-    void update(QList<QGraphicsEllipseItem*> &items,QList<PointMoveInformation> &informations,int interval);
+    void update(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval);
 
 
 private:

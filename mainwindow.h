@@ -13,6 +13,7 @@
 #include <QTime>
 #include "pointmoveinformation.h"
 #include "updater.h"
+#include "pointdoglegmoveinformation.h"
 
 namespace Ui {
 class MainWindow;
@@ -38,7 +39,7 @@ public slots:
     void timeUp();
 
 signals:
-    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointMoveInformation> &informations,int interval);
+    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval);
 
 private slots:
     void on_pushButton_clicked();
@@ -64,6 +65,7 @@ private:
     Updater *updater;
     QList<QGraphicsEllipseItem *> items;
     QList<PointMoveInformation> informations;
+    QList<PointDoglegMoveInformation> dogleginformations;
     int currentTime;
 
     QTimer *timer;

@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(timeUp()));
-    connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointMoveInformation>&,int)));
+    connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int)));
     timer->start(10);
 
     // init playRound
@@ -44,7 +44,7 @@ MainWindow::~MainWindow()
 void MainWindow::timeUp(){
     currentTime+=timer->interval();
     ui->statusBar->showMessage(QTime::currentTime().toString());
-    emit triggerUpdate(items,informations,timer->interval());
+    emit triggerUpdate(items,dogleginformations,timer->interval());
 }
 
 //resize event
@@ -114,7 +114,7 @@ void MainWindow::mouseReleaseEvent(QMouseEvent *e){
     //QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-5,-5,10,10);
     //eitem->setBrush(QBrush(QColor(0,0,0)));
     //items.append(eitem);
-    //informations.append(PointMoveInformation(mousePressedPosOld,e->pos(),2000,currentTime,2200));
+    //informations.append(PointDoglegMoveInformation(mousePressedPosOld,e->pos(),2000,currentTime,2200));
 
 }
 
@@ -133,8 +133,8 @@ void MainWindow::on_pushButton_clicked()
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 1
-    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200)); // startTime, moveTime, endTime
-    //informations.append(PointMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),vertices.at(playRound+1),2000,currentTime,2200)); // startTime, moveTime, endTime
+    //informations.append(PointDoglegMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
     playRound++;
 }
 
@@ -145,7 +145,7 @@ void MainWindow::on_pushButton_2_clicked()
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 2
-    informations.append(PointMoveInformation(vertices.at(playRound),midPointsDown.at(playRound),2000,currentTime,2200));
-    //informations.append(PointMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound),midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
     playRound++;
 }

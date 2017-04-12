@@ -8,7 +8,7 @@ Updater::Updater(QGraphicsScene *bindScene,QObject *parent):QObject(parent)
     currentTime=0;
 }
 
-void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointMoveInformation> &informations, int interval){
+void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMoveInformation> &informations, int interval){
     if(items.length()!=informations.length()){
         qDebug()<<"Error! Update Terminated!";
         return;
@@ -29,7 +29,14 @@ void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointMoveInform
                 if(!scene->items().contains(items[i]))scene->addItem(items[i]);
             }
             else{
-                items[i]->setPos(informations[i].startPos+((informations[i].endPos-informations[i].startPos)*(currentTime-informations[i].startTime))/informations[i].moveTime);
+                //items[i]->setPos(informations[i].startPos+((informations[i].endPos-informations[i].startPos)*(currentTime-informations[i].startTime))/informations[i].moveTime);
+                if(informations[i].startTime + (informations[i].moveTime/2) <= currentTime){
+                    //first half
+                    items[i]->setPos(informations[i].startPos+((informations[i].midPos-informations[i].startPos)*(currentTime-informations[i].startTime))/ (informations[i].moveTime/2) );
+                }else{
+                    //second half
+                    items[i]->setPos(informations[i].midPos+((informations[i].endPos-informations[i].midPos)*(currentTime-( informations[i].startTime + (informations[i].moveTime/2))))/ (informations[i].moveTime/2) );
+                }
                 if(!scene->items().contains(items[i]))scene->addItem(items[i]);
             }
         }
