@@ -79,17 +79,17 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         scene->addItem(startItem);
         //draw two lanes from mousePressedPosOld to mousePressedPosNew
         midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
-        QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
+        QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
         scene->addItem(path11);
-        QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
+        QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
         scene->addItem(path12);
-        QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+        QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
         scene->addItem(path21);
-        QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+        QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
         scene->addItem(path22);
 
-        midPointUp = QPoint( midPoint.x(),midPoint.y() + 20 );
-        midPointDown = QPoint( midPoint.x(),midPoint.y() - 20 );
+        midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
+        midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
 
         // add in the QList of vertices
         vertices.append(e->pos());
@@ -133,7 +133,7 @@ void MainWindow::on_pushButton_clicked()
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 1
-    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200));
+    informations.append(PointMoveInformation(vertices.at(playRound),midPointsUp.at(playRound),2000,currentTime,2200)); // startTime, moveTime, endTime
     //informations.append(PointMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
     playRound++;
 }

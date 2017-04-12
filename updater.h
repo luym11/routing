@@ -11,7 +11,7 @@ class Updater:public QObject
 {
     Q_OBJECT
 public:
-    Updater(QGraphicsScene *bindScene,QObject *parent=0);
+    Updater(QGraphicsScene *bindScene,QObject *parent=0);// constructor
     int currentTime;
 
 

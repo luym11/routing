@@ -16,10 +16,13 @@ TEMPLATE = app
 SOURCES += main.cpp\
         mainwindow.cpp \
     updater.cpp \
-    pointmoveinformation.cpp
+    pointmoveinformation.cpp \
+    pointdoglegmoveinformation.cpp
 
 HEADERS  += mainwindow.h \
     updater.h \
-    pointmoveinformation.h
+    pointmoveinformation.h \
+    ../pointdoglegmoveinformation.h \
+    pointdoglegmoveinformation.h
 
 FORMS    += mainwindow.ui
