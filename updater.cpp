@@ -13,6 +13,7 @@ void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMove
 //        qDebug()<<"Error! Update Terminated!";
 //        return;
 //    }
+//
     currentTime+=interval;
     for(int i=0;i<informations.length();++i){
         //here must be written as this cause lifetime may be INT_MAX and any add to is will cause overflow 
