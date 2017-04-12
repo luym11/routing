@@ -30,9 +30,10 @@ void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMove
             }
             else{
                 //items[i]->setPos(informations[i].startPos+((informations[i].endPos-informations[i].startPos)*(currentTime-informations[i].startTime))/informations[i].moveTime);
-                if(informations[i].startTime + (informations[i].moveTime/2) <= currentTime){
+                if(informations[i].startTime + (informations[i].moveTime/2) >= currentTime){
                     //first half
                     items[i]->setPos(informations[i].startPos+((informations[i].midPos-informations[i].startPos)*(currentTime-informations[i].startTime))/ (informations[i].moveTime/2) );
+                    //items[i]->setPos(informations[i].startPos);
                 }else{
                     //second half
                     items[i]->setPos(informations[i].midPos+((informations[i].endPos-informations[i].midPos)*(currentTime-( informations[i].startTime + (informations[i].moveTime/2))))/ (informations[i].moveTime/2) );
