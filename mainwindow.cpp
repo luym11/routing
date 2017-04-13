@@ -407,10 +407,10 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 
 void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
 
-    std::vector<int> vehicleLanes(vehicleNum);
+
     for(int i = 0; i < vehicleNum; i++){
 
-        vehicleLanes.push_back(thislaneNum);// can be adjusted
+        vehicleLanes.append(thislaneNum);// can be adjusted
 
         //create item and info for them
         QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
@@ -418,13 +418,14 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
         items.append(eitem);
         // Draw one other vehicle goes from its Lane
         if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(thislaneNum-1),vertices.at((mousePressedNum)), 2000-100*i,currentTime,2200-100*i));
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((mousePressedNum)), 2000-100*i,currentTime,2200-100*i));
 
         }else{
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(thislaneNum-1),vertices.at((playRound+1)%mousePressedNum), 2000-100*i,currentTime,2200-100*i));
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((playRound+1)%mousePressedNum), 2000-100*i,currentTime,2200-100*i));
 
         }
     }
+    vehicleLanes.clear();
 }
 
 void MainWindow::on_spinBox_valueChanged(int arg1)
