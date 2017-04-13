@@ -63,7 +63,7 @@
      <number>2</number>
     </property>
     <property name="maximum">
-     <number>3</number>
+     <number>9</number>
     </property>
     <property name="orientation">
      <enum>Qt::Horizontal</enum>

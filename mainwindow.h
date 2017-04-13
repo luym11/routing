@@ -60,12 +60,28 @@ private:
     QGraphicsLineItem *tempLine;
     bool tempAdded;
     QPoint midPoint;
-    QPoint midPointUp;
-    QPoint midPointDown;
+    QPoint midPoint1;
+    QPoint midPoint2;
+    QPoint midPoint3;
+    QPoint midPoint4;
+    QPoint midPoint5;
+    QPoint midPoint6;
+    QPoint midPoint7;
+    QPoint midPoint8;
+    QPoint midPoint9;
     QList<QPoint> vertices;
-    QList<QPoint> midPointsUp;
-    QList<QPoint> midPointsDown;
-    QList<QPoint> midPoints;
+    QList<QPoint> midPoints1;
+    QList<QPoint> midPoints2;
+    QList<QPoint> midPoints3;
+    QList<QPoint> midPoints4;
+    QList<QPoint> midPoints5;
+    QList<QPoint> midPoints6;
+    QList<QPoint> midPoints7;
+    QList<QPoint> midPoints8;
+    QList<QPoint> midPoints9;
+
+    QList<QPoint> tempMidPointList;
+    QList<QList<QPoint> > allMidPoints;
 
 //    QWidget window;
 //    QSpinBox *pSpinBox;

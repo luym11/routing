@@ -1,7 +1,7 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-
+#define MAX_LANE_NUM 9
 
 //remember to include <QDebug> in cpp files. printf() will not flush instantly in Qt GUI applications..
 MainWindow::MainWindow(QWidget *parent) :
@@ -91,54 +91,72 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         startItem->setBrush((QBrush(QColor(255, 0, 0))));
         scene->addItem(startItem);
 
-        if(createLaneNum == 2){
-            //draw two lanes from mousePressedPosOld to mousePressedPosNew
-            midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
+
+        // set midPointX and midPointXs
+        midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
+        midPoint3.setX(midPoint.x());
+        midPoint3.setY(midPoint.y());
+        midPoint1 = QPoint( midPoint.x(),midPoint.y() - 20 );
+        midPoint2 = QPoint( midPoint.x(),midPoint.y() + 20 );
+        // add in the QList of midpoints
+        midPoints1.append(midPoint1);
+        midPoints2.append(midPoint2);
+        midPoints3.append(midPoint3);
+        //allMidPoints
+        for(int i = 0; i < MAX_LANE_NUM; i++){
+            /////////////////////////////////////////////////////////
+            // vertical distance       i
+            //        -20              0
+            //         20              1
+            //          0              2
+            if(i == 2) {tempMidPointList.append(midPoint3); continue;}
+            if(i == 0) {tempMidPointList.append(midPoint1); continue;}
+            if(i == 1) {tempMidPointList.append(midPoint2);continue;}
+            //        -30              3
+            //         30              4
+            //        -40              5
+            //         40              6
+            //        -50              7
+            //         50              8
+            if(i % 2 == 1){
+                tempMidPointList.append(QPoint( midPoint.x(),midPoint.y() - (30 + 5 * (i-3))));
+            }else{
+                tempMidPointList.append(QPoint( midPoint.x(),midPoint.y() + (30 + 5 * (i-4))));
+            }
+        }
+
+        allMidPoints.append(tempMidPointList);
+
+        // add in the QList of vertices
+        vertices.append(e->pos());
+
+
+        // draw lanes
+        if(createLaneNum >= 2){
             QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
             scene->addItem(path11);
-            QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
+            QGraphicsLineItem *path12 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
             scene->addItem(path12);
-            QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+
+            QGraphicsLineItem *path21 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
             scene->addItem(path21);
             QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
             scene->addItem(path22);
-
-            midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
-            midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
-
-            // add in the QList of vertices
-            vertices.append(e->pos());
-            // add in the QList of midpoints
-            midPointsUp.append(midPointUp);
-            midPointsDown.append(midPointDown);
-            midPoints.append(midPoint);
-        }else if(createLaneNum == 3){
-            //draw two lanes from mousePressedPosOld to mousePressedPosNew
-            midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
-            QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
-            scene->addItem(path11);
-            QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
-            scene->addItem(path12);
-            QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
-            scene->addItem(path21);
-            QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
-            scene->addItem(path22);
+        }
+        if(createLaneNum >= 3){
             QGraphicsLineItem *path3 = new QGraphicsLineItem( mousePressedPosOld.x(), mousePressedPosOld.y(), mousePressedPosNew.x(), mousePressedPosNew.y() );
             scene->addItem(path3);
-
-            midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
-            midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
-
-            // add in the QList of vertices
-            vertices.append(e->pos());
-            // add in the QList of midpoints
-            midPointsUp.append(midPointUp);
-            midPointsDown.append(midPointDown);
-            midPoints.append(midPoint);
-        }else{
-            qDebug()<<"Error! Invalie number of lanes";
-            return;
         }
+        if(createLaneNum >= 4){
+            // createLaneNum is not 2 or 3
+            for(int i = 4; i <= createLaneNum; i++){
+            QGraphicsLineItem *tpath11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),tempMidPointList.at(i-1).x(), tempMidPointList.at(i-1).y() );
+            scene->addItem(tpath11);
+            QGraphicsLineItem *tpath12 = new QGraphicsLineItem( tempMidPointList.at(i-1).x(), tempMidPointList.at(i-1).y(), mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(tpath12);
+            }
+        }
+
 
 
     }
@@ -146,6 +164,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
     mousePressedPosOld =e->pos();
     mousePressedNum ++;
     laneNums.append(createLaneNum);
+    tempMidPointList.clear();
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *e){
@@ -179,9 +198,9 @@ void MainWindow::on_pushButton_clicked()
     items.append(eitem);
     // Draw one vehicle goes from Lane 1
     if(playRound != 0 && playRound%(mousePressedNum)== (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPointsUp.at(playRound%mousePressedNum),vertices.at((mousePressedNum)),2000,currentTime,2200)); // startTime, moveTime, endTime
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints1.at(playRound%mousePressedNum),vertices.at((mousePressedNum)),2000,currentTime,2200)); // startTime, moveTime, endTime
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPointsUp.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum),2000,currentTime,2200)); // startTime, moveTime, endTime
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints1.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum),2000,currentTime,2200)); // startTime, moveTime, endTime
     }
     //informations.append(PointDoglegMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
     playRound++;
@@ -195,10 +214,10 @@ void MainWindow::on_pushButton_2_clicked()
     items.append(eitem);
     // Draw one vehicle goes from Lane 2
     if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPointsDown.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints2.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), 2000,currentTime,2200));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPointsDown.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints2.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -213,10 +232,10 @@ void MainWindow::on_pushButton_3_clicked()
     items.append(eitem);
     // Draw one vehicle goes from Lane 3 (a straight line)
     if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints3.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), 2000,currentTime,2200));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints3.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
