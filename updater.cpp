@@ -8,7 +8,7 @@ Updater::Updater(QGraphicsScene *bindScene,QObject *parent):QObject(parent)
     currentTime=0;
 }
 
-void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMoveInformation> &informations, int interval, int mousePressedNum){
+void Updater::update(QList<QGraphicsEllipseItem *> &items, QList<PointDoglegMoveInformation> &informations, int interval, QList<int> &laneNums){
 //    if(items.length()!= ( informations.length()%mousePressedNum ) ){
 //        qDebug()<<"Error! Update Terminated!";
 //        return;

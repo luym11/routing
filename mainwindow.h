@@ -41,7 +41,7 @@ public:
 public slots:
     void timeUp();
 signals:
-    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval, int mousePressedNum);
+    void triggerUpdate(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval, QList<int> &laneNums);
 
 private slots:
     void on_pushButton_clicked();
@@ -63,6 +63,7 @@ private:
     QList<QPoint> vertices;
     QList<QPoint> midPointsUp;
     QList<QPoint> midPointsDown;
+    QList<QPoint> midPoints;
 
 //    QWidget window;
 //    QSpinBox *pSpinBox;
@@ -83,6 +84,8 @@ private:
     bool firstTimeFlag = true;
     int playRound;
     int mousePressedNum;
+    int createLaneNum;
+    QList<int> laneNums;
 };
 
 #endif // MAINWINDOW_H

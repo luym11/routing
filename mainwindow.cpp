@@ -26,7 +26,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     timer=new QTimer(this);
     connect(timer,SIGNAL(timeout()),this,SLOT(timeUp()));
-    connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int, int)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int, int)));
+    connect(this,SIGNAL(triggerUpdate(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int, QList<int>&)),updater,SLOT(update(QList<QGraphicsEllipseItem*>&,QList<PointDoglegMoveInformation>&,int, QList<int>&)));
     timer->start(10);
 
     // init playRound
@@ -35,6 +35,8 @@ MainWindow::MainWindow(QWidget *parent) :
     mousePressedNum = -1;
 
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
+    createLaneNum = 2;
+    laneNums.append(createLaneNum);
 //    setSliderAndSpinBox();
 //    QHBoxLayout *layout = new QHBoxLayout;
 //    layout->addWidget(pSpinBox);
@@ -55,7 +57,7 @@ MainWindow::~MainWindow()
 void MainWindow::timeUp(){
     currentTime+=timer->interval();
     ui->statusBar->showMessage(QTime::currentTime().toString());
-    emit triggerUpdate(items,dogleginformations,timer->interval(), this->mousePressedNum);
+    emit triggerUpdate(items,dogleginformations,timer->interval(), laneNums);
 }
 
 //resize event
@@ -88,31 +90,61 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         QGraphicsEllipseItem *startItem = new QGraphicsEllipseItem(mousePressedPosNew.x()-5,mousePressedPosNew.y()-5, 10, 10);
         startItem->setBrush((QBrush(QColor(255, 0, 0))));
         scene->addItem(startItem);
-        //draw two lanes from mousePressedPosOld to mousePressedPosNew
-        midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
-        QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
-        scene->addItem(path11);
-        QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
-        scene->addItem(path12);
-        QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
-        scene->addItem(path21);
-        QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
-        scene->addItem(path22);
 
-        midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
-        midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
+        if(createLaneNum == 2){
+            //draw two lanes from mousePressedPosOld to mousePressedPosNew
+            midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
+            QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
+            scene->addItem(path11);
+            QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
+            scene->addItem(path12);
+            QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(path21);
+            QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(path22);
 
-        // add in the QList of vertices
-        vertices.append(e->pos());
-        // add in the QList of midpoints
-        midPointsUp.append(midPointUp);
-        midPointsDown.append(midPointDown);
+            midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
+            midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
+
+            // add in the QList of vertices
+            vertices.append(e->pos());
+            // add in the QList of midpoints
+            midPointsUp.append(midPointUp);
+            midPointsDown.append(midPointDown);
+        }else if(createLaneNum == 3){
+            //draw two lanes from mousePressedPosOld to mousePressedPosNew
+            midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
+            QGraphicsLineItem *path11 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() - 20 );
+            scene->addItem(path11);
+            QGraphicsLineItem *path12 = new QGraphicsLineItem( mousePressedPosOld.x(),mousePressedPosOld.y(),midPoint.x(),midPoint.y() + 20 );
+            scene->addItem(path12);
+            QGraphicsLineItem *path21 = new QGraphicsLineItem( midPoint.x(),midPoint.y() - 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(path21);
+            QGraphicsLineItem *path22 = new QGraphicsLineItem( midPoint.x(),midPoint.y() + 20, mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(path22);
+            QGraphicsLineItem *path3 = new QGraphicsLineItem( mousePressedPosOld.x(), mousePressedPosOld.y(), mousePressedPosNew.x(), mousePressedPosNew.y() );
+            scene->addItem(path3);
+
+            midPointUp = QPoint( midPoint.x(),midPoint.y() - 20 );
+            midPointDown = QPoint( midPoint.x(),midPoint.y() + 20 );
+
+            // add in the QList of vertices
+            vertices.append(e->pos());
+            // add in the QList of midpoints
+            midPointsUp.append(midPointUp);
+            midPointsDown.append(midPointDown);
+            midPoints.append(midPoint);
+        }else{
+            qDebug()<<"Error! Invalie number of lanes";
+            return;
+        }
 
 
     }
 
     mousePressedPosOld =e->pos();
     mousePressedNum ++;
+    laneNums.append(createLaneNum);
 }
 
 void MainWindow::mouseReleaseEvent(QMouseEvent *e){
@@ -177,4 +209,5 @@ void MainWindow::on_pushButton_2_clicked()
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
     ui->lcdNumber->display(value);
+    createLaneNum = value;
 }

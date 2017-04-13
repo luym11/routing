@@ -17,7 +17,7 @@ public:
 
 
 public slots:
-    void update(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval, int mousePressedNum);
+    void update(QList<QGraphicsEllipseItem*> &items,QList<PointDoglegMoveInformation> &informations,int interval, QList<int> &laneNums);
 
 
 private:
