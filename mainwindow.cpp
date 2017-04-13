@@ -1,7 +1,6 @@
 ﻿#include "mainwindow.h"
 #include "ui_mainwindow.h"
 #include <QDebug>
-#define MAX_LANE_NUM 9
 
 //remember to include <QDebug> in cpp files. printf() will not flush instantly in Qt GUI applications..
 MainWindow::MainWindow(QWidget *parent) :
@@ -34,15 +33,16 @@ MainWindow::MainWindow(QWidget *parent) :
     // init mousePressedNum
     mousePressedNum = -1;
 
-    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
     createLaneNum = 2;
-    laneNums.append(createLaneNum);
+    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
+
+    //laneNums.append(createLaneNum);
 //    setSliderAndSpinBox();
 //    QHBoxLayout *layout = new QHBoxLayout;
 //    layout->addWidget(pSpinBox);
 //    layout->addWidget(pSlider);
 //    window.setLayout(layout);
-
+    connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_valueChanged(int)));
 
 }
 
@@ -125,6 +125,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
             }
         }
 
+        // can reach them in the future
         allMidPoints.append(tempMidPointList);
 
         // add in the QList of vertices
@@ -158,12 +159,13 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
         }
 
 
+        laneNums.append(createLaneNum);
 
     }
 
     mousePressedPosOld =e->pos();
     mousePressedNum ++;
-    laneNums.append(createLaneNum);
+    // clear tempMids
     tempMidPointList.clear();
 }
 
@@ -242,6 +244,139 @@ void MainWindow::on_pushButton_3_clicked()
     playRound++;
 }
 
+void MainWindow::on_pushButton_4_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 4
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(4-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(4-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
+
+void MainWindow::on_pushButton_5_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 5
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(5-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(5-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
+
+void MainWindow::on_pushButton_6_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 6
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(6-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(6-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
+
+void MainWindow::on_pushButton_7_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 7
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(7-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(7-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
+
+void MainWindow::on_pushButton_8_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 8
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(8-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(8-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
+
+void MainWindow::on_pushButton_9_clicked()
+{
+    //otherVehicleSetUp(otherVehicleNum, 9);
+
+    // other vehicles choosing lanes
+    int vehicleNum = otherVehicleNum;
+    int thislaneNum = laneNums.at(playRound%mousePressedNum);
+    std::vector<int> vehicleLanes(vehicleNum);
+    for(int i = 0; i < vehicleNum; i++){
+
+        vehicleLanes.push_back(thislaneNum);// can be adjusted
+
+        //create item and info for them
+        QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+        eitem->setBrush(QBrush(QColor(0,255,0)));
+        items.append(eitem);
+        // Draw one other vehicle goes from its Lane
+        if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(thislaneNum-1),vertices.at((mousePressedNum)), 2000-100*i,currentTime,2200-100*i));
+
+        }else{
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(thislaneNum-1),vertices.at((playRound+1)%mousePressedNum), 2000-100*i,currentTime,2200-100*i));
+
+        }
+    }
+
+
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 9
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(9-1),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(9-1),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
@@ -249,4 +384,40 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     createLaneNum = value;
 }
 
+void otherVehicleSetUp(int vehicleNum, int thislaneNum){
+//    // other vehicles choosing lanes
+//    std::default_random_engine e;
+//    std::normal_distribution<double> n( lround(chosenlaneNum/2), 2);
+//    std::vector<int> vehicleLanes(vehicleNum);
+//    for(int i = 0; i < vehicleNum; i++){
+//        int v = lround(n(e));
+//        if(v <= 1){
+//            v = 1;
+//        }else if(v >= chosenlaneNum){
+//            v = chosenlaneNum;
+//        }else{
+//            //nothing
+//        }
+//        vehicleLanes.append(v);
 
+//        //create item and info for them
+//        QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+//        eitem->setBrush(QBrush(QColor(0,255,0)));
+//        items.append(eitem);
+//        // Draw one other vehicle goes from its Lane
+//        if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+//            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(v-1),vertices.at((mousePressedNum)), 2200,currentTime,2400));
+
+//        }else{
+//            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(v-1),vertices.at((playRound+1)%mousePressedNum), 2200,currentTime,2400));
+
+//        }
+//    }
+
+
+}
+
+void MainWindow::on_spinBox_valueChanged(int arg1)
+{
+    otherVehicleNum = arg1;
+}

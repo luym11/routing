@@ -18,6 +18,11 @@
 #include <cstdlib>
 #include <iostream>
 
+
+
+#define MAX_LANE_NUM 9
+using namespace std;
+
 namespace Ui {
 class MainWindow;
 }
@@ -51,6 +56,20 @@ private slots:
     void on_horizontalSlider_valueChanged(int value);
 
     void on_pushButton_3_clicked();
+
+    void on_pushButton_4_clicked();
+
+    void on_pushButton_7_clicked();
+
+    void on_pushButton_5_clicked();
+
+    void on_pushButton_6_clicked();
+
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_9_clicked();
+
+    void on_spinBox_valueChanged(int arg1);
 
 private:
     Ui::MainWindow *ui;
@@ -104,6 +123,9 @@ private:
     int mousePressedNum;
     int createLaneNum;
     QList<int> laneNums;
+
+    int otherVehicleNum;
+    void otherVehicleSetUp(int vehicleNum, int chosenlaneNum);
 };
 
 #endif // MAINWINDOW_H
