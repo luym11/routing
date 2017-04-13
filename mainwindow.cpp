@@ -111,6 +111,7 @@ void MainWindow::mousePressEvent(QMouseEvent *e){
             // add in the QList of midpoints
             midPointsUp.append(midPointUp);
             midPointsDown.append(midPointDown);
+            midPoints.append(midPoint);
         }else if(createLaneNum == 3){
             //draw two lanes from mousePressedPosOld to mousePressedPosNew
             midPoint = QPoint( (mousePressedPosOld.x() + mousePressedPosNew.x())/2,  (mousePressedPosOld.y() + mousePressedPosNew.y())/2);
@@ -204,6 +205,23 @@ void MainWindow::on_pushButton_2_clicked()
     playRound++;
 }
 
+void MainWindow::on_pushButton_3_clicked()
+{
+    //here we construct a "point" and schedule its update
+    QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
+    eitem->setBrush(QBrush(QColor(0,0,0)));
+    items.append(eitem);
+    // Draw one vehicle goes from Lane 3 (a straight line)
+    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), 2000,currentTime,2200));
+
+    }else{
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), 2000,currentTime,2200));
+
+    }
+    //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
+    playRound++;
+}
 
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
@@ -211,3 +229,5 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
     ui->lcdNumber->display(value);
     createLaneNum = value;
 }
+
+
