@@ -444,7 +444,7 @@ void MainWindow::on_pushButton_9_clicked()
 
 void MainWindow::on_horizontalSlider_valueChanged(int value)
 {
-    ui->lcdNumber->display(value);
+    ui->lcdNumber_lane->display(value);
     createLaneNum = value;
 }
 
