@@ -127,6 +127,7 @@ private:
     int otherVehicleNum;
     void otherVehicleSetUp(int vehicleNum, int thislaneNum);
     QList<int> vehicleLanes;
+    QList<int> vehicleNumOnEachLane;
 };
 
 #endif // MAINWINDOW_H
