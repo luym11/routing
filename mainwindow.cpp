@@ -34,6 +34,7 @@ MainWindow::MainWindow(QWidget *parent) :
     // init mousePressedNum
     mousePressedNum = -1;
 
+    connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 //    setSliderAndSpinBox();
 //    QHBoxLayout *layout = new QHBoxLayout;
 //    layout->addWidget(pSpinBox);
@@ -171,3 +172,9 @@ void MainWindow::on_pushButton_2_clicked()
     playRound++;
 }
 
+
+
+void MainWindow::on_horizontalSlider_valueChanged(int value)
+{
+    ui->lcdNumber->display(value);
+}
