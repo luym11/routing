@@ -64,6 +64,16 @@ void MainWindow::timeUp(){
     currentTime+=timer->interval();
     ui->statusBar->showMessage(QTime::currentTime().toString());
     emit triggerUpdate(items,dogleginformations,timer->interval(), laneNums);
+
+    ui->lcdNumber->display(vehicleNumOnEachLane.at(1));
+    ui->lcdNumber_2->display(vehicleNumOnEachLane.at(2));
+    ui->lcdNumber_3->display(vehicleNumOnEachLane.at(3));
+    ui->lcdNumber_4->display(vehicleNumOnEachLane.at(4));
+    ui->lcdNumber_5->display(vehicleNumOnEachLane.at(5));
+    ui->lcdNumber_6->display(vehicleNumOnEachLane.at(6));
+    ui->lcdNumber_7->display(vehicleNumOnEachLane.at(7));
+    ui->lcdNumber_8->display(vehicleNumOnEachLane.at(8));
+    ui->lcdNumber_9->display(vehicleNumOnEachLane.at(9));
 }
 
 //resize event
@@ -206,7 +216,7 @@ void MainWindow::on_pushButton_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 1; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -231,7 +241,7 @@ void MainWindow::on_pushButton_2_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 2; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
 
@@ -259,7 +269,7 @@ void MainWindow::on_pushButton_3_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 3; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
 
@@ -287,7 +297,7 @@ void MainWindow::on_pushButton_4_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 4; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -314,7 +324,7 @@ void MainWindow::on_pushButton_5_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 5; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -341,7 +351,7 @@ void MainWindow::on_pushButton_6_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 6; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -368,7 +378,7 @@ void MainWindow::on_pushButton_7_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 7; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -395,7 +405,7 @@ void MainWindow::on_pushButton_8_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 8; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -422,7 +432,7 @@ void MainWindow::on_pushButton_9_clicked()
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
     int i = 9; i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*200;
+    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
     //here we construct a "point" and schedule its update
@@ -467,10 +477,10 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
         items.append(eitem);
         // Draw one other vehicle goes from its Lane
         if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((mousePressedNum)), t_start-100*i,currentTime,t_stop-100*i));
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((mousePressedNum)), t_start+100*i,currentTime,t_stop+100*i));
 
         }else{
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((playRound+1)%mousePressedNum), t_start-100*i,currentTime,t_stop-100*i));
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((playRound+1)%mousePressedNum), t_start+100*i,currentTime,t_stop+100*i));
 
         }
     }
@@ -480,4 +490,10 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
 void MainWindow::on_spinBox_valueChanged(int arg1)
 {
     otherVehicleNum = arg1;
+}
+
+void MainWindow::on_pushButton_10_clicked()
+{
+    for(int i = 0; i < MAX_LANE_NUM; i++)
+    vehicleNumOnEachLane.replace(i, 0);
 }

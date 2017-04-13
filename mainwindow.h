@@ -71,6 +71,8 @@ private slots:
 
     void on_spinBox_valueChanged(int arg1);
 
+    void on_pushButton_10_clicked();
+
 private:
     Ui::MainWindow *ui;
     QGraphicsScene *scene;
