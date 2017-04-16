@@ -215,7 +215,9 @@ void MainWindow::on_pushButton_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 1; i--;
+    int i = 1;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -240,7 +242,9 @@ void MainWindow::on_pushButton_2_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 2; i--;
+    int i = 2;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -268,7 +272,9 @@ void MainWindow::on_pushButton_3_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 3; i--;
+    int i = 3;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -296,7 +302,9 @@ void MainWindow::on_pushButton_4_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 4; i--;
+    int i = 4;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -323,7 +331,9 @@ void MainWindow::on_pushButton_5_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 5; i--;
+    int i = 5;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -350,7 +360,9 @@ void MainWindow::on_pushButton_6_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 6; i--;
+    int i = 6;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -377,7 +389,9 @@ void MainWindow::on_pushButton_7_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 7; i--;
+    int i = 7;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -404,7 +418,9 @@ void MainWindow::on_pushButton_8_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 8; i--;
+    int i = 8;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -431,7 +447,9 @@ void MainWindow::on_pushButton_9_clicked()
     //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
 
-    int i = 9; i--;
+    int i = 9;
+    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    i--;
     int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
     int t_stop = t_start + 200;
 
@@ -471,6 +489,8 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
         vehicleNumOnEachLane.replace(lanelane, ttemp+1);
         int t_start = 2000 + vehicleNumOnEachLane.at(vehicleLanes.at(i))*200;
         int t_stop = t_start + 200;
+
+
         //create item and info for them
         QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
         eitem->setBrush(QBrush(QColor(0,255,0)));
