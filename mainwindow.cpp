@@ -33,10 +33,10 @@ MainWindow::MainWindow(QWidget *parent) :
     // init mousePressedNum
     mousePressedNum = -1;
 
-    createLaneNum = 2;
+    createLaneNum = 9;
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 
-    otherVehicleNum = 4;
+    otherVehicleNum = 23;
     connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_valueChanged(int)));
 
     for(int i = 0; i <= MAX_LANE_NUM; i++){
@@ -282,11 +282,31 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 }
 
 void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
+    int lanelane;
+    int summ = 0;
+    int summ2 = 0;
+    QList<int> randomVehicleNumDistribution;
+    QList<int> randomLaneAssignment;
+
+    for(int i = 0; i < thislaneNum; i++){
+        randomVehicleNumDistribution.append(rand() % vehicleNum + 1);
+        summ = summ + randomVehicleNumDistribution.at(i);
+    }
+    for(int i = 0; i < (thislaneNum - 1); i++){
+        randomVehicleNumDistribution.replace(i, qFloor( vehicleNum * randomVehicleNumDistribution.at(i)/summ + 1) - 1  );
+        summ2 = summ2 + randomVehicleNumDistribution.at(i);
+    }
+    randomVehicleNumDistribution.replace(thislaneNum - 1, vehicleNum - summ2);
+
+    for(int i = 0; i<thislaneNum; i++){
+            for(int j = 0; j < randomVehicleNumDistribution.at(i); j++){
+                 randomLaneAssignment.append(i+1);
+            }
+    }
 
     for(int i = 0; i < vehicleNum; i++){
 
-        int lanelane = (i + 1)%thislaneNum;// can be adjusted, basically from 1~thislaneNum
-        if(lanelane == 0) lanelane = thislaneNum;
+        lanelane = randomLaneAssignment.at(i);
 
         vehicleLanes.append(lanelane);
         vehicleNumOnEachLane.replace(lanelane, vehicleNumOnEachLane.at(lanelane) + 1);
