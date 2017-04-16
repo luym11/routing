@@ -217,19 +217,19 @@ void MainWindow::on_pushButton_clicked()
 
     int i = 1;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 1
-    if(playRound != 0 && playRound%(mousePressedNum)== (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints1.at(playRound%mousePressedNum),vertices.at((mousePressedNum)),t_start,currentTime,t_stop)); // startTime, moveTime, endTime
+    if(playRound%mousePressedNum== (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)),t_move,currentTime,t_life)); // startTime, moveTime, endTime
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints1.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum),t_start,currentTime,t_stop)); // startTime, moveTime, endTime
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum),t_move,currentTime,t_life)); // startTime, moveTime, endTime
     }
     //informations.append(PointDoglegMoveInformation(midPointsUp.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
     playRound++;
@@ -244,9 +244,9 @@ void MainWindow::on_pushButton_2_clicked()
 
     int i = 2;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
 
     //here we construct a "point" and schedule its update
@@ -254,11 +254,11 @@ void MainWindow::on_pushButton_2_clicked()
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 2
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints2.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints2.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -274,9 +274,9 @@ void MainWindow::on_pushButton_3_clicked()
 
     int i = 3;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
 
     //here we construct a "point" and schedule its update
@@ -284,11 +284,11 @@ void MainWindow::on_pushButton_3_clicked()
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 3 (a straight line)
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints3.at(playRound%mousePressedNum),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),midPoints3.at(playRound%mousePressedNum),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -304,20 +304,20 @@ void MainWindow::on_pushButton_4_clicked()
 
     int i = 4;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 4
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(4-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(4-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -333,20 +333,20 @@ void MainWindow::on_pushButton_5_clicked()
 
     int i = 5;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 5
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(5-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(5-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -362,20 +362,20 @@ void MainWindow::on_pushButton_6_clicked()
 
     int i = 6;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 6
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(6-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(6-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -391,20 +391,20 @@ void MainWindow::on_pushButton_7_clicked()
 
     int i = 7;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 7
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(7-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(7-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -420,20 +420,20 @@ void MainWindow::on_pushButton_8_clicked()
 
     int i = 8;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 8
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(8-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if( playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(8-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
     //informations.append(PointDoglegMoveInformation(midPointsDown.at(playRound),vertices.at(playRound+1), 2000,currentTime,2200));
@@ -449,20 +449,20 @@ void MainWindow::on_pushButton_9_clicked()
 
     int i = 9;
     vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
     i--;
-    int t_start = 2000+ vehicleNumOnEachLane.at(i)*400;
-    int t_stop = t_start + 200;
+    int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
     // Draw one vehicle goes from Lane 9
-    if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(9-1),vertices.at((mousePressedNum)), t_start,currentTime,t_stop));
+    if(playRound%mousePressedNum == (mousePressedNum-1)){
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((mousePressedNum)), t_move,currentTime,t_life));
 
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(9-1),vertices.at((playRound+1)%mousePressedNum), t_start,currentTime,t_stop));
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i),vertices.at((playRound+1)%mousePressedNum), t_move,currentTime,t_life));
 
     }
 
@@ -478,17 +478,15 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 
 void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
 
-    int ttemp;
     for(int i = 0; i < vehicleNum; i++){
 
-        int lanelane = (thislaneNum+i)%thislaneNum;// can be adjusted, basically from 1-MAX_LANE_NUM
-        if(lanelane == 0) lanelane = 3;
+        int lanelane = (i + 1)%thislaneNum;// can be adjusted, basically from 1~thislaneNum
+        if(lanelane == 0) lanelane = thislaneNum;
 
         vehicleLanes.append(lanelane);
-        ttemp = vehicleNumOnEachLane.at(lanelane);
-        vehicleNumOnEachLane.replace(lanelane, ttemp+1);
-        int t_start = 2000 + vehicleNumOnEachLane.at(vehicleLanes.at(i))*200;
-        int t_stop = t_start + 200;
+        vehicleNumOnEachLane.replace(lanelane, vehicleNumOnEachLane.at(lanelane) + 1);
+        int t_move = 5000 + vehicleNumOnEachLane.at(vehicleLanes.at(i))*400;
+        int t_life = t_move + 200;
 
 
         //create item and info for them
@@ -496,11 +494,11 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
         eitem->setBrush(QBrush(QColor(0,255,0)));
         items.append(eitem);
         // Draw one other vehicle goes from its Lane
-        if(playRound != 0 && playRound%(mousePressedNum) == (mousePressedNum-1)){
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((mousePressedNum)), t_start+100*i,currentTime,t_stop+100*i));
+        if(playRound%mousePressedNum == (mousePressedNum-1)){
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((mousePressedNum)), t_move/*+100*i*/,currentTime,t_life/*+100*i*/));
 
         }else{
-            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((playRound+1)%mousePressedNum), t_start+100*i,currentTime,t_stop+100*i));
+            dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(vehicleLanes.at(i)-1),vertices.at((playRound+1)%mousePressedNum), t_move/*+100*i*/,currentTime,t_life/*+100*i*/));
 
         }
     }
@@ -514,6 +512,6 @@ void MainWindow::on_spinBox_valueChanged(int arg1)
 
 void MainWindow::on_pushButton_10_clicked()
 {
-    for(int i = 0; i < MAX_LANE_NUM; i++)
+    for(int i = 1; i <= MAX_LANE_NUM; i++)
     vehicleNumOnEachLane.replace(i, 0);
 }
