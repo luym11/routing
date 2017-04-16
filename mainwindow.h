@@ -130,6 +130,8 @@ private:
     void otherVehicleSetUp(int vehicleNum, int thislaneNum);
     QList<int> vehicleLanes;
     QList<int> vehicleNumOnEachLane;
+
+    void myVehicleSetUp(int clickedLane);
 };
 
 #endif // MAINWINDOW_H
