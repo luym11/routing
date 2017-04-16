@@ -36,12 +36,6 @@ MainWindow::MainWindow(QWidget *parent) :
     createLaneNum = 2;
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 
-    //laneNums.append(createLaneNum);
-//    setSliderAndSpinBox();
-//    QHBoxLayout *layout = new QHBoxLayout;
-//    layout->addWidget(pSpinBox);
-//    layout->addWidget(pSlider);
-//    window.setLayout(layout);
     otherVehicleNum = 4;
     connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_valueChanged(int)));
 
@@ -210,117 +204,74 @@ void MainWindow::mouseMoveEvent(QMouseEvent *e){
 
 void MainWindow::on_pushButton_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 1;
-
-    myVehicleSetUp(i);
+    int clickedLane = 1;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 2;
-
-    myVehicleSetUp(i);
+    int clickedLane = 2;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_3_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 3;
-
-    myVehicleSetUp(i);
+    int clickedLane = 3;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_4_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 4;
-
-    myVehicleSetUp(i);
+    int clickedLane = 4;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_5_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 5;
-
-    myVehicleSetUp(i);
+    int clickedLane = 5;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_6_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 6;
-
-    myVehicleSetUp(i);
+    int clickedLane = 6;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_7_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 7;
-
-    myVehicleSetUp(i);
+    int clickedLane = 7;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_8_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
+
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 8;
-
-    myVehicleSetUp(i);
+    int clickedLane = 8;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
 void MainWindow::on_pushButton_9_clicked()
 {
-    // other vehicles choosing lanes
-    //int vehicleNum = otherVehicleNum;
-    //int thislaneNum = laneNums.at(playRound%mousePressedNum);
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-
-    int i = 9;
-    myVehicleSetUp(i);
+    int clickedLane = 9;
+    myVehicleSetUp(clickedLane);
     playRound++;
 }
 
@@ -360,21 +311,20 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int thislaneNum){
 }
 
 void MainWindow::myVehicleSetUp(int clickedLane){
-    int i = clickedLane;
 
-    vehicleNumOnEachLane.replace(i, vehicleNumOnEachLane.at(i)+1);
-    int t_move = 5000+ vehicleNumOnEachLane.at(i)*400;
+    vehicleNumOnEachLane.replace(clickedLane, vehicleNumOnEachLane.at(clickedLane)+1);
+    int t_move = 5000+ vehicleNumOnEachLane.at(clickedLane)*400;
     int t_life = t_move + 200;
 
     //here we construct a "point" and schedule its update
     QGraphicsEllipseItem *eitem=new QGraphicsEllipseItem(-2,-2,4,4);
     eitem->setBrush(QBrush(QColor(0,0,0)));
     items.append(eitem);
-    // Draw one vehicle goes from Lane i
+    // Draw one vehicle goes from lane clickedLane
     if(playRound%mousePressedNum== (mousePressedNum-1)){
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i-1),vertices.at((mousePressedNum)),t_move,currentTime,t_life)); // startTime, moveTime, endTime
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(clickedLane-1),vertices.at((mousePressedNum)),t_move,currentTime,t_life)); // startTime, moveTime, endTime
     }else{
-        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(i-1),vertices.at((playRound+1)%mousePressedNum),t_move,currentTime,t_life)); // startTime, moveTime, endTime
+        dogleginformations.append(PointDoglegMoveInformation(vertices.at(playRound%mousePressedNum),allMidPoints.at(playRound%mousePressedNum).at(clickedLane-1),vertices.at((playRound+1)%mousePressedNum),t_move,currentTime,t_life)); // startTime, moveTime, endTime
     }
 }
 
@@ -385,6 +335,7 @@ void MainWindow::on_spinBox_valueChanged(int arg1)
 
 void MainWindow::on_pushButton_10_clicked()
 {
-    for(int i = 1; i <= MAX_LANE_NUM; i++)
-    vehicleNumOnEachLane.replace(i, 0);
+    for(int i = 1; i <= MAX_LANE_NUM; i++){
+        vehicleNumOnEachLane.replace(i, 0);
+    }
 }
