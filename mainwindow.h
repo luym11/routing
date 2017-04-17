@@ -131,9 +131,16 @@ private:
     void otherVehicleSetUp(int vehicleNum, int thislaneNum);
     QList<int> vehicleLanes;
     QList<int> vehicleNumOnEachLane;
+    QList<int> vehicleNumOnEachLaneLastRound;
 
     void myVehicleSetUp(int clickedLane);
     QList<int> randomlyAssignLaneFunc(int vehicleNum, int laneNumOfThisRound);
+    QList<int> findMinValueIndices(QList<int> vehicleNumOnEachLane);
+
+    QList<int> laneAssigned;//should declare here, not in the function. That's what caused out of index
+    QList<int> minValueIndices;
+    QList<int> lastResultBasedAssignLaneFunc(int vehicleNum, int laneNumOfThisRound, QList<int> myVehicleNumOnEachLaneLastRound);
+
 };
 
 #endif // MAINWINDOW_H

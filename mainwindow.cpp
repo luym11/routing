@@ -282,11 +282,13 @@ void MainWindow::on_horizontalSlider_valueChanged(int value)
 }
 
 void MainWindow::otherVehicleSetUp(int vehicleNum, int laneNumForThisRound){
-
-    // Randomly assign "laneNumForThisRound" lanes for "vehicleNum" vehicles
-    QList<int> laneAssigned;
-    laneAssigned = randomlyAssignLaneFunc(vehicleNum, laneNumForThisRound);
-    //
+    if(playRound == 0){
+        // Randomly assign "laneNumForThisRound" lanes for "vehicleNum" vehicles
+        laneAssigned = randomlyAssignLaneFunc(vehicleNum, laneNumForThisRound);
+    }else{
+        // Each vehicle chooses a lane based on previous results, might be unable to get our from while() if laneNum on each playRound are different
+        laneAssigned = lastResultBasedAssignLaneFunc(vehicleNum, laneNumForThisRound, vehicleNumOnEachLaneLastRound);
+    }
 
     int lanelane;
     for(int i = 0; i < vehicleNum; i++){
@@ -318,6 +320,7 @@ void MainWindow::otherVehicleSetUp(int vehicleNum, int laneNumForThisRound){
 void MainWindow::myVehicleSetUp(int clickedLane){
 
     vehicleNumOnEachLane.replace(clickedLane, vehicleNumOnEachLane.at(clickedLane)+1);
+    vehicleNumOnEachLaneLastRound = vehicleNumOnEachLane;
     int t_move = 5000+ vehicleNumOnEachLane.at(clickedLane)*400;
     int t_life = t_move + 200;
 
@@ -333,6 +336,7 @@ void MainWindow::myVehicleSetUp(int clickedLane){
     }
 }
 
+// stupid function! just assign vehicles to lanes using rand()%Num works
 QList<int> MainWindow::randomlyAssignLaneFunc(int vehicleNum, int laneNumOfThisRound){
     int summ = 0;
     int summ2 = 0;
@@ -356,6 +360,64 @@ QList<int> MainWindow::randomlyAssignLaneFunc(int vehicleNum, int laneNumOfThisR
     }
     return randomLaneAssignment;
 }
+
+QList<int> MainWindow::findMinValueIndices(QList<int> myVehicleNumOnEachLane){
+    int minNum;
+    QList<int> indicesOfMinValues;
+    minNum = myVehicleNumOnEachLane.at(1);
+    for(int i = 1; i < myVehicleNumOnEachLane.length(); i++){
+        if(minNum >= myVehicleNumOnEachLane.at(i)){
+            minNum = myVehicleNumOnEachLane.at(i);
+        }
+    }
+    for(int i = 1; i < myVehicleNumOnEachLane.length(); i++){
+        if(minNum == myVehicleNumOnEachLane.at(i)){
+            indicesOfMinValues.append(i);
+        }
+    }
+    return indicesOfMinValues;
+}
+
+QList<int> MainWindow::lastResultBasedAssignLaneFunc(int vehicleNum, int laneNumForThisRound, QList<int> myVehicleNumOnEachLaneLastRound){ // these 3 params should be consistant
+    QList<int> lastResultBasedAssignedLane;
+
+    minValueIndices = findMinValueIndices(myVehicleNumOnEachLaneLastRound);
+    int r;
+    int ii;
+    int compareRound;
+    for(int i = 0; i < vehicleNum; i++){
+        r = rand()%10;
+        if( r == 0 || r == 1 || r == 2 || r == 3){ // 40% for others, 60% for lanes previously have min #vehicles
+            ii = rand()%laneNumForThisRound + 1;
+            compareRound = 0;
+            while(compareRound < minValueIndices.length()){
+                if(ii == minValueIndices.at(compareRound)){
+                    compareRound = 0;
+                    ii = rand()%laneNumForThisRound + 1;
+                }else{
+                    compareRound++;
+                }
+            }
+            lastResultBasedAssignedLane.append(ii);
+        }else{
+            ii = rand()%laneNumForThisRound + 1;
+            compareRound = 0;
+            while(1){
+                if(ii == minValueIndices.at(compareRound)){
+                    break;
+                }
+                compareRound =( compareRound+1 )% minValueIndices.length();
+                if(compareRound == 0 ){
+                    ii = rand()%laneNumForThisRound + 1;
+                }
+            }
+            lastResultBasedAssignedLane.append(ii);
+        }
+    }
+    return lastResultBasedAssignedLane;
+}
+
+
 
 void MainWindow::on_spinBox_valueChanged(int arg1)
 {
