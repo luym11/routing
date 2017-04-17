@@ -42,6 +42,12 @@ MainWindow::MainWindow(QWidget *parent) :
 
     setUpFlag = false;
 
+    myVehicleNumOnLanes.append(0); // 0 posirion holder
+    myVehicleNumOnLanes.append(10); // 10 initially on lane 1
+    for(int i = 2; i <= MAX_LANE_NUM; i++){
+        myVehicleNumOnLanes.append(0); // 0 initially on other lanes
+    }
+
 
 }
 
@@ -425,8 +431,8 @@ QList<int> MainWindow::lastResultBasedAssignLaneFunc(int vehicleNum, int laneNum
                 if(compareRound == 0 ){
                     ii = rand()%laneNumForThisRound + 1;
                 }
-                cout << "createLaneNum = " << createLaneNum << endl;
-                cout << "ii = " << ii << ", minValueIndices.at(compareRound) = " << minValueIndices.at(compareRound) << endl;
+                // cout << "createLaneNum = " << createLaneNum << endl;
+                // cout << "ii = " << ii << ", minValueIndices.at(compareRound) = " << minValueIndices.at(compareRound) << endl;
             }
             lastResultBasedAssignedLane.append(ii);
         }
@@ -453,55 +459,69 @@ void MainWindow::on_pushButton_10_clicked()
 void MainWindow::on_spinBox_valueChanged(int arg1)
 {
     myVehicleNumOnLane1 = arg1;
+    myVehicleNumOnLanes.replace(1, myVehicleNumOnLane1);
 }
 
 void MainWindow::on_spinBox_2_valueChanged(int arg1)
 {
     myVehicleNumOnLane2 = arg1;
+    myVehicleNumOnLanes.replace(2, myVehicleNumOnLane2);
 }
 
 void MainWindow::on_spinBox_3_valueChanged(int arg1)
 {
     myVehicleNumOnLane3 = arg1;
+    myVehicleNumOnLanes.replace(3, myVehicleNumOnLane3);
 }
 
 void MainWindow::on_spinBox_4_valueChanged(int arg1)
 {
     myVehicleNumOnLane4 = arg1;
+    myVehicleNumOnLanes.replace(4, myVehicleNumOnLane4);
 }
 
 void MainWindow::on_spinBox_5_valueChanged(int arg1)
 {
     myVehicleNumOnLane5 = arg1;
+    myVehicleNumOnLanes.replace(5, myVehicleNumOnLane5);
 }
 
 void MainWindow::on_spinBox_6_valueChanged(int arg1)
 {
     myVehicleNumOnLane6 = arg1;
+    myVehicleNumOnLanes.replace(6, myVehicleNumOnLane6);
 }
 
 void MainWindow::on_spinBox_7_valueChanged(int arg1)
 {
     myVehicleNumOnLane7 = arg1;
+    myVehicleNumOnLanes.replace(7, myVehicleNumOnLane7);
 }
 
 void MainWindow::on_spinBox_8_valueChanged(int arg1)
 {
     myVehicleNumOnLane8 = arg1;
+    myVehicleNumOnLanes.replace(8, myVehicleNumOnLane8);
 }
 
 void MainWindow::on_spinBox_9_valueChanged(int arg1)
 {
     myVehicleNumOnLane9 = arg1;
+    myVehicleNumOnLanes.replace(9, myVehicleNumOnLane9);
 }
 
 void MainWindow::on_pushButton_run_clicked()
 {
     otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
-    //QList<int> myVehicleNumOnEachLane;
-    //myVehicleNumOnEachLane
-    int clickedLane = 9;
-    myVehicleSetUp(clickedLane);
+    QList<int> myVehicleAllocation;
+    for(int k = 1; k <= createLaneNum; k++ ){
+        for(int h = 0; h < myVehicleNumOnLanes.at(k); h++){
+            myVehicleAllocation.append(k);
+        }
+    }
+    for(int k = 0; k < myVehicleAllocation.length(); k++){
+        myVehicleSetUp(myVehicleAllocation.at(k));
+    }
     playRound++;
 }
 

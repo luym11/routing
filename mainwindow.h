@@ -164,6 +164,7 @@ private:
     int myVehicleNumOnLane7;
     int myVehicleNumOnLane8;
     int myVehicleNumOnLane9;
+    QList<int> myVehicleNumOnLanes;
 
     void setUp();
     bool setUpFlag;
