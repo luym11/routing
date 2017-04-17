@@ -37,13 +37,19 @@ MainWindow::MainWindow(QWidget *parent) :
     connect(ui->horizontalSlider, SIGNAL(valueChanged(int)), this, SLOT(on_horizontalSlider_valueChanged(int)));
 
     otherVehicleNum = 23;
-    connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_valueChanged(int)));
+    connect(ui->spinBox_other, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_other_valueChanged(int)));
+    // connect(ui->spinBox, SIGNAL(valueChanged(int)), this, SLOT(on_spinBox_valueChanged(int))); // ACTUALLY NO NEED
 
-    for(int i = 0; i <= MAX_LANE_NUM; i++){
+    setUpFlag = false;
+
+
+}
+
+void MainWindow::setUp(){ // do this after setting createLaneNum
+    for(int i = 0; i <= createLaneNum; i++){
         vehicleNumOnEachLane.append(0);
     }
-
-
+    setUpFlag = true;
 }
 
 MainWindow::~MainWindow()
@@ -58,16 +64,26 @@ void MainWindow::timeUp(){
     currentTime+=timer->interval();
     ui->statusBar->showMessage(QTime::currentTime().toString());
     emit triggerUpdate(items,dogleginformations,timer->interval(), laneNums);
-
-    ui->lcdNumber->display(vehicleNumOnEachLane.at(1));
-    ui->lcdNumber_2->display(vehicleNumOnEachLane.at(2));
-    ui->lcdNumber_3->display(vehicleNumOnEachLane.at(3));
-    ui->lcdNumber_4->display(vehicleNumOnEachLane.at(4));
-    ui->lcdNumber_5->display(vehicleNumOnEachLane.at(5));
-    ui->lcdNumber_6->display(vehicleNumOnEachLane.at(6));
-    ui->lcdNumber_7->display(vehicleNumOnEachLane.at(7));
-    ui->lcdNumber_8->display(vehicleNumOnEachLane.at(8));
-    ui->lcdNumber_9->display(vehicleNumOnEachLane.at(9));
+    if(setUpFlag == true){
+        if(createLaneNum >= 2){
+            ui->lcdNumber->display(vehicleNumOnEachLane.at(1));
+            ui->lcdNumber_2->display(vehicleNumOnEachLane.at(2));
+        }
+        if(createLaneNum >= 3)
+            ui->lcdNumber_3->display(vehicleNumOnEachLane.at(3));
+        if(createLaneNum >= 4)
+            ui->lcdNumber_4->display(vehicleNumOnEachLane.at(4));
+        if(createLaneNum >= 5)
+            ui->lcdNumber_5->display(vehicleNumOnEachLane.at(5));
+        if(createLaneNum >= 6)
+            ui->lcdNumber_6->display(vehicleNumOnEachLane.at(6));
+        if(createLaneNum >= 7)
+            ui->lcdNumber_7->display(vehicleNumOnEachLane.at(7));
+        if(createLaneNum >= 8)
+            ui->lcdNumber_8->display(vehicleNumOnEachLane.at(8));
+        if(createLaneNum >= 9)
+            ui->lcdNumber_9->display(vehicleNumOnEachLane.at(9));
+    }
 }
 
 //resize event
@@ -378,9 +394,8 @@ QList<int> MainWindow::findMinValueIndices(QList<int> myVehicleNumOnEachLane){
     return indicesOfMinValues;
 }
 
-QList<int> MainWindow::lastResultBasedAssignLaneFunc(int vehicleNum, int laneNumForThisRound, QList<int> myVehicleNumOnEachLaneLastRound){ // these 3 params should be consistant
+QList<int> MainWindow::lastResultBasedAssignLaneFunc(int vehicleNum, int laneNumForThisRound, QList<int> myVehicleNumOnEachLaneLastRound){ //last 2 params should be consistant
     QList<int> lastResultBasedAssignedLane;
-
     minValueIndices = findMinValueIndices(myVehicleNumOnEachLaneLastRound);
     int r;
     int ii;
@@ -410,23 +425,87 @@ QList<int> MainWindow::lastResultBasedAssignLaneFunc(int vehicleNum, int laneNum
                 if(compareRound == 0 ){
                     ii = rand()%laneNumForThisRound + 1;
                 }
+                cout << "createLaneNum = " << createLaneNum << endl;
+                cout << "ii = " << ii << ", minValueIndices.at(compareRound) = " << minValueIndices.at(compareRound) << endl;
             }
             lastResultBasedAssignedLane.append(ii);
         }
     }
+
     return lastResultBasedAssignedLane;
 }
 
 
 
-void MainWindow::on_spinBox_valueChanged(int arg1)
+void MainWindow::on_spinBox_other_valueChanged(int arg1)
 {
     otherVehicleNum = arg1;
 }
 
 void MainWindow::on_pushButton_10_clicked()
 {
-    for(int i = 1; i <= MAX_LANE_NUM; i++){
+    for(int i = 1; i <= createLaneNum; i++){
         vehicleNumOnEachLane.replace(i, 0);
+        //cout << "vehicleNumOnEachLane.length() = " << vehicleNumOnEachLane.length() << endl;
     }
+}
+
+void MainWindow::on_spinBox_valueChanged(int arg1)
+{
+    myVehicleNumOnLane1 = arg1;
+}
+
+void MainWindow::on_spinBox_2_valueChanged(int arg1)
+{
+    myVehicleNumOnLane2 = arg1;
+}
+
+void MainWindow::on_spinBox_3_valueChanged(int arg1)
+{
+    myVehicleNumOnLane3 = arg1;
+}
+
+void MainWindow::on_spinBox_4_valueChanged(int arg1)
+{
+    myVehicleNumOnLane4 = arg1;
+}
+
+void MainWindow::on_spinBox_5_valueChanged(int arg1)
+{
+    myVehicleNumOnLane5 = arg1;
+}
+
+void MainWindow::on_spinBox_6_valueChanged(int arg1)
+{
+    myVehicleNumOnLane6 = arg1;
+}
+
+void MainWindow::on_spinBox_7_valueChanged(int arg1)
+{
+    myVehicleNumOnLane7 = arg1;
+}
+
+void MainWindow::on_spinBox_8_valueChanged(int arg1)
+{
+    myVehicleNumOnLane8 = arg1;
+}
+
+void MainWindow::on_spinBox_9_valueChanged(int arg1)
+{
+    myVehicleNumOnLane9 = arg1;
+}
+
+void MainWindow::on_pushButton_run_clicked()
+{
+    otherVehicleSetUp(otherVehicleNum, laneNums.at(playRound%mousePressedNum));
+    //QList<int> myVehicleNumOnEachLane;
+    //myVehicleNumOnEachLane
+    int clickedLane = 9;
+    myVehicleSetUp(clickedLane);
+    playRound++;
+}
+
+void MainWindow::on_pushButton_11_clicked()
+{
+    setUp();
 }

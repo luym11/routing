@@ -70,9 +70,31 @@ private slots:
 
     void on_pushButton_9_clicked();
 
-    void on_spinBox_valueChanged(int arg1);
+    void on_spinBox_other_valueChanged(int arg1);
 
     void on_pushButton_10_clicked();
+
+    void on_spinBox_valueChanged(int arg1);
+
+    void on_spinBox_2_valueChanged(int arg1);
+
+    void on_spinBox_3_valueChanged(int arg1);
+
+    void on_spinBox_4_valueChanged(int arg1);
+
+    void on_spinBox_5_valueChanged(int arg1);
+
+    void on_spinBox_6_valueChanged(int arg1);
+
+    void on_spinBox_7_valueChanged(int arg1);
+
+    void on_spinBox_8_valueChanged(int arg1);
+
+    void on_spinBox_9_valueChanged(int arg1);
+
+    void on_pushButton_run_clicked();
+
+    void on_pushButton_11_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -105,14 +127,6 @@ private:
     QList<QPoint> tempMidPointList;
     QList<QList<QPoint> > allMidPoints;
 
-//    QWidget window;
-//    QSpinBox *pSpinBox;
-//    QSlider *pSlider;
-//    void setSliderAndSpinBox();
-//    int nMin = 2;
-//    int nMax = 5;
-//    int nSingleStep = 1;
-
     Updater *updater;
     QList<QGraphicsEllipseItem *> items;
     QList<PointMoveInformation> informations;
@@ -141,6 +155,18 @@ private:
     QList<int> minValueIndices;
     QList<int> lastResultBasedAssignLaneFunc(int vehicleNum, int laneNumOfThisRound, QList<int> myVehicleNumOnEachLaneLastRound);
 
+    int myVehicleNumOnLane1;
+    int myVehicleNumOnLane2;
+    int myVehicleNumOnLane3;
+    int myVehicleNumOnLane4;
+    int myVehicleNumOnLane5;
+    int myVehicleNumOnLane6;
+    int myVehicleNumOnLane7;
+    int myVehicleNumOnLane8;
+    int myVehicleNumOnLane9;
+
+    void setUp();
+    bool setUpFlag;
 };
 
 #endif // MAINWINDOW_H
