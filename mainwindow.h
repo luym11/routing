@@ -36,7 +36,7 @@ public:
     explicit MainWindow(QWidget *parent = 0);
     ~MainWindow();
 
-    //events 
+    //events
     void resizeEvent(QResizeEvent *e);
     void mousePressEvent(QMouseEvent *e);
     void mouseReleaseEvent(QMouseEvent *e);
@@ -133,6 +133,7 @@ private:
     QList<int> vehicleNumOnEachLane;
 
     void myVehicleSetUp(int clickedLane);
+    QList<int> randomlyAssignLaneFunc(int vehicleNum, int laneNumOfThisRound);
 };
 
 #endif // MAINWINDOW_H
